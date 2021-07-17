@@ -1,34 +1,23 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 
-const slideCol = keyframes`
-    from {
-      opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-`;
-
-const Outter = styled.ul`
-  background-color: burlywood;
-  list-style: none;
+const Outter = styled.div`
+  width: 100%;
+  max-width: 1060px;
   text-align: right;
-
-  transform: scale(1, 1);
-  opacity: 1;
-
-  animation: ${slideCol} 3s;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 50px;
 `;
 
-const Item = styled.li`
-  font-weight: 600;
-
+const Item = styled.h4`
+  margin: 0;
   & + & {
     margin-top: 10px;
   }
 `;
-function Contents({ isOpen }) {
+function Contents({ isOpen, setIsOpen }) {
   const data = [
     { id: 1, title: "엔지니어링 설계 >" },
     { id: 2, title: "물류▪무역 >" },
@@ -41,8 +30,14 @@ function Contents({ isOpen }) {
     { id: 9, title: "공공▪복지 >" },
   ];
   return (
-    <Outter>
-      {isOpen && data.map((d) => <Item key={d.id}>{d.title}</Item>)}
+    <Outter
+      onMouseLeave={() => {
+        setIsOpen(false);
+      }}
+    >
+      {data.map((d) => (
+        <Item key={d.id}>{d.title}</Item>
+      ))}
     </Outter>
   );
 }
