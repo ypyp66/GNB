@@ -9,7 +9,6 @@ import Contents from "./Contents";
 import MobileMenu from "./MobileMenu";
 
 const Container = styled.div`
-  border-bottom: 1px solid lightgray;
   position: fixed;
   box-sizing: border-box;
   cursor: pointer;
@@ -151,7 +150,7 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  function onMenuBtnClick(e) {
+  function onMenuBtnClick() {
     setMobileOpen((prev) => !prev);
   }
   return (
@@ -208,7 +207,7 @@ function Navbar() {
             )}
           </Inner>
         </Outter>
-        {isOpen && (
+        {!isMobile && isOpen && (
           <>
             <Contents isOpen={isOpen} setIsOpen={setIsOpen} />
             <BackGround />

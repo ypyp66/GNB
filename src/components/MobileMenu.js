@@ -70,7 +70,7 @@ function MobileMenu({ setMobileOpen }) {
   return (
     <Mobile onClick={() => setMobileOpen((prev) => !prev)}>
       <Bar>
-        <img src={LOGO} alt="wanted" height="30px" />
+        <img src={LOGO} alt="wanted2" height="30px" />
         <div style={{ color: "gray", cursor: "pointer" }}>✖</div>
       </Bar>
       <MenuContainer>

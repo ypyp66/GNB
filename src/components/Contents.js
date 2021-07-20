@@ -18,7 +18,7 @@ const Outter = styled.div`
   align-items: center;
   flex-direction: column;
   background-color: white;
-  width: 100vw;
+  width: 100%;
 
   animation: ${spread} 0.1s ease;
 `;
@@ -27,10 +27,17 @@ const Item = styled.h4`
   width: 100%;
   text-align: right;
   max-width: 1060px;
-  margin: 0;
+  margin: 0 auto;
 
   & + & {
     margin-top: 10px;
+  }
+
+  @media (min-width: 1200px) {
+    width: 87.72%;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    width: 90%;
   }
 `;
 
