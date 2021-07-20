@@ -2,15 +2,13 @@
 
 #### - 컴포넌트 구조
 
-##### /components : 컴포넌트들을 모아놓는 폴더
+##### /components : 컴포넌트들을 모아놓기 위한 폴더
 
 - **Contents.js** // Navbar 메뉴 hover시 나오는 메뉴
 - **MobileMenu.js** // Mobile에서 메뉴 클릭시 나오는 메뉴
 - **Navbar.js** // Navbar 메뉴
 
-##### /img
-
-- 이미지 저장 폴더
+##### /img : 이미지 저장 폴더
 
 #### - 구현 사항
 
