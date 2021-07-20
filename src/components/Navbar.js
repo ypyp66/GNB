@@ -9,36 +9,50 @@ import Contents from "./Contents";
 import MobileMenu from "./MobileMenu";
 
 const Container = styled.div`
-  display: block;
+  border-bottom: 1px solid lightgray;
+  position: fixed;
   box-sizing: border-box;
   cursor: pointer;
   height: 50px;
+  width: 100%;
 
   @media (max-width: 767px) {
-    height: 53px;
+    height: 57px;
   }
 `;
 
-const List = styled.li`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  list-style: none;
+const BackGround = styled.div`
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100vw;
+  height: 100vh;
 `;
 
 const Outter = styled(Container)`
-  border-bottom: 1px solid lightgray;
+  border: none;
+  max-width: 1060px;
   position: relative;
   margin: 0 auto;
+  z-index: auto;
+
+  @media (min-width: 1200px) {
+    width: 87.72%;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    width: 90%;
+  }
 `;
 
-const Inner = styled(Container)`
+const Inner = styled(Container.withComponent("nav"))`
+  position: static;
+  border: none;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 
-const NavListContainer = styled(Container)`
+const NavListContainer = styled(Container.withComponent("ul"))`
+  position: static;
+  border: none;
   display: flex;
   flex-wrap: wrap;
   flex: 1;
@@ -138,69 +152,71 @@ function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   function onMenuBtnClick(e) {
-    console.log(e.target);
     setMobileOpen((prev) => !prev);
   }
-
-  useEffect(() => {
-    console.log(isOpen);
-  }, [isOpen]);
   return (
     <>
-      <Outter>
-        <Inner>
-          {isMobile ? "" : <img src={LOGO} alt="wanted" height="18px" />}
-          <NavListContainer>
-            {data.map((d, index) => (
-              <NavList
-                id={d.id}
-                onMouseOver={
-                  index === 1
-                    ? () => setIsOpen(true)
-                    : () => {
-                        setIsOpen(false);
-                      }
-                }
-                key={d.id}
-                className={index > 2 ? "selectVisible" : ""}
-              >
-                {d.title}
-              </NavList>
-            ))}
-          </NavListContainer>
-          {!isMobile ? (
-            <NavIconContainer>
-              <NavListContainer>
-                {icons.map((icon, index) => {
-                  if (index < icons.length - 1)
-                    return <NavIcon key={icon.id}>{icon.title}</NavIcon>;
-                  else return "";
-                })}
-              </NavListContainer>
-            </NavIconContainer>
-          ) : (
-            ""
-          )}
-          {isMobile ? (
-            <NavIconContainer>
-              <NavListContainer>
-                {icons.map((icon, index) => {
-                  if (index > 1 && index < icons.length - 1) return "";
+      <Container>
+        <Outter>
+          <Inner>
+            {isMobile ? "" : <img src={LOGO} alt="wanted" height="18px" />}
+            <NavListContainer>
+              {data.map((d, index) => (
+                <NavList
+                  id={d.id}
+                  key={d.id}
+                  onMouseOver={
+                    index === 1
+                      ? () => {
+                          setIsOpen(true);
+                        }
+                      : () => {
+                          setIsOpen(false);
+                        }
+                  }
+                  className={index > 2 ? "selectVisible" : ""}
+                >
+                  {d.title}
+                </NavList>
+              ))}
+            </NavListContainer>
+            {!isMobile ? (
+              <NavIconContainer>
+                <NavListContainer>
+                  {icons.map((icon, index) => {
+                    if (index < icons.length - 1)
+                      return <NavIcon key={icon.id}>{icon.title}</NavIcon>;
+                    else return "";
+                  })}
+                </NavListContainer>
+              </NavIconContainer>
+            ) : (
+              ""
+            )}
+            {isMobile ? (
+              <NavIconContainer>
+                <NavListContainer>
+                  {icons.map((icon, index) => {
+                    if (index > 1 && index < icons.length - 1) return "";
 
-                  return <NavIcon>{icon.title}</NavIcon>;
-                })}
-              </NavListContainer>
-            </NavIconContainer>
-          ) : (
-            ""
-          )}
-        </Inner>
-        {!isMobile && isOpen && (
-          <Contents isOpen={isOpen} setIsOpen={setIsOpen} />
+                    return <NavIcon>{icon.title}</NavIcon>;
+                  })}
+                </NavListContainer>
+              </NavIconContainer>
+            ) : (
+              ""
+            )}
+          </Inner>
+        </Outter>
+        {isOpen && (
+          <>
+            <Contents isOpen={isOpen} setIsOpen={setIsOpen} />
+            <BackGround />
+          </>
         )}
-      </Outter>
-      {mobileOpen && (
-        <MobileMenu isOpen={mobileOpen} setIsOpen={setMobileOpen} />
+      </Container>
+      {isMobile && mobileOpen && (
+        <MobileMenu mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
       )}
     </>
   );
